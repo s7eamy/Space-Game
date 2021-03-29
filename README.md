@@ -1,5 +1,5 @@
 ## Space Game 🌠
-A game in... space! ✨
+A game in space(duh)! ✨
 
 ### What am I playing as?
 A spaceship! 🚀
