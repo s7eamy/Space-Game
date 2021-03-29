@@ -2,17 +2,30 @@
 #include "include/global_variables.h"
 #include <iostream>
 
+void calculate_rotation(Entity& e)
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	x -= e.mPosX+e.ENTITY_WIDTH/2;
+	y -= e.mPosY+e.ENTITY_HEIGHT/2;
+	e.rotation = atan2(y, x);
+	e.rotation = e.rotation * 180 / 3.14;
+	e.rotation += 90;
+}
+
 Entity::Entity()
 {
 	mPosX = 0;
 	mPosY = 0;
 	mVelX = 0;
 	mVelY = 0;
-	mEntityTexture = LTexture();
+	rotation = 0.0;
 }
 
 void Entity::move()
 {
+	//double radians = (rotation * 3.14) / 180;
+	calculate_rotation(*this);
 	mPosX += mVelX;
 	if ((mPosX < 0) || (mPosX + ENTITY_WIDTH > SCREEN_WIDTH))
 	{
@@ -30,26 +43,23 @@ void Entity::handleEvent(SDL_Event& e)
 {
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 	{
+		// check double->int casts
 		switch (e.key.keysym.sym)
 		{
 			case SDLK_UP:
 			mVelY -= ENTITY_VEL;
-			std::cout << "User pressed up!\n";
 			break;
 
 			case SDLK_DOWN:
 			mVelY += ENTITY_VEL;
-			std::cout << "User pressed down!\n";
 			break;
 
 			case SDLK_LEFT:
 			mVelX -= ENTITY_VEL;
-			std::cout << "User pressed left!\n";
 			break;
 
 			case SDLK_RIGHT:
 			mVelX += ENTITY_VEL;
-			std::cout << "User pressed right!\n";
 			break;
 		}
 	}
@@ -59,29 +69,28 @@ void Entity::handleEvent(SDL_Event& e)
 		{
 			case SDLK_UP:
 			mVelY += ENTITY_VEL;
-			std::cout << "User released up!\n";
 			break;
 
 			case SDLK_DOWN:
 			mVelY -= ENTITY_VEL;
-			std::cout << "User released down!\n";
 			break;
 
 			case SDLK_LEFT:
-			mVelX += ENTITY_VEL; 
-			std::cout << "User released left!\n";
+			mVelX += ENTITY_VEL;
 			break;
 
 			case SDLK_RIGHT:
 			mVelX -= ENTITY_VEL;
-			std::cout << "User released right!\n";
 			break;
 		}
+	}
+	else if (e.type == SDL_MOUSEMOTION)
+	{
 	}
 }
 
 
 void Entity::render(SDL_Rect* clip)
 {
-	gShipTexture.render(mPosX, mPosY, clip);
+	gShipTexture.render(mPosX, mPosY, clip, rotation);
 }

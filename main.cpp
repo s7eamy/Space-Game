@@ -6,11 +6,10 @@
 #include "include/global_variables.h"
 
 /**
-* 1. Fix right side collision error ( THIS HAPPENS BECAUSE OF SPRITE SHEET, SINCE TEXTURE IS VERY WIDE. USE CURRENTCLIP )
-* 2. Implement rotation with right & left keys
-* 3. Implement space rubble
-* 4. Implement health
-* 5. Implement bullets from spaceship
+* 1. Implement rotation with right & left keys BETTER THIS
+* 2. Implement space rubble
+* 3. Implement health
+* 4. Implement bullets from spaceship
 */
 
 bool Init();

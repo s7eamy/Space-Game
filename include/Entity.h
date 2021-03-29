@@ -11,8 +11,7 @@ private:
 	int mPosY;
 	int mVelX;
 	int mVelY;
-	LTexture mEntityTexture;
-	
+	double rotation;
 
 public:
 	Entity();
@@ -24,5 +23,6 @@ public:
 	void render(SDL_Rect* clip = nullptr);
 	void handleEvent(SDL_Event& e);
 	void move();
+	friend void calculate_rotation(Entity &e);
 
 };
