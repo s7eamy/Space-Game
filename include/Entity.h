@@ -6,21 +6,25 @@
 
 class Entity
 {
-private:
+protected:
 	int mPosX;
 	int mPosY;
 	int mVelX;
 	int mVelY;
 	double rotation;
 
+	Entity(int xvel = 0, int yvel = 0, int xpos = 0, int ypos = 0, double rot = 0.0) :
+		mPosX{ xpos }, mPosY{ ypos }, mVelX{ xvel }, mVelY{ yvel }, rotation{ rot }
+	{
+	}
+
 public:
-	Entity();
 
 	static const int ENTITY_VEL = 10;
 	static const int ENTITY_WIDTH = 150;
 	static const int ENTITY_HEIGHT = 150;
 
-	void render(SDL_Rect* clip = nullptr);
+	void render( LTexture& text, SDL_Rect* clip = nullptr);
 	void handleEvent(SDL_Event& e);
 	void move();
 	friend void calculate_rotation(Entity &e);
