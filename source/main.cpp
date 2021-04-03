@@ -66,8 +66,7 @@ int main(int argc, char* args[])
 		{
 			if (gSpaceRubble[i].getHealth() <= 0)
 			{
-				std::cout << "Initialized " << i << " rubble!\n";
-				gSpaceRubble[i].setHealth(100); // 100 should be a symbolic constant, change this later
+				gSpaceRubble[i].setHealth(100); // 100 should be a sym const, change this later
 				gSpaceRubble[i].setRandomPos();
 			}
 			else

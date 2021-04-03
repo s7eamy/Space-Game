@@ -5,7 +5,7 @@
 
 void Rubble::setRandomPos()
 {
-	mPosX = SCREEN_WIDTH - RUBBLE_WIDTH;
+	mPosX = SCREEN_WIDTH;
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<std::mt19937::result_type> dist(0, (SCREEN_HEIGHT - RUBBLE_HEIGHT));
@@ -21,8 +21,9 @@ void Rubble::setSize(const int w, const int h)
 void Rubble::move()
 {
 	mPosX += RUBBLE_VEL;
-	if ((mPosX < 0) || (mPosX + RUBBLE_WIDTH > SCREEN_WIDTH))
+	if ((mPosX < -RUBBLE_WIDTH))
 	{
 		mPosX -= RUBBLE_VEL;
+		mHealth = 0;
 	}
 }

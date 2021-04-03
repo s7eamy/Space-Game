@@ -19,14 +19,5 @@ protected:
 	}
 
 public:
-
-	static const int ENTITY_VEL = 10;
-	static const int ENTITY_WIDTH = 150;
-	static const int ENTITY_HEIGHT = 150;
-
 	void render( LTexture& text, SDL_Rect* clip = nullptr);
-	void handleEvent(SDL_Event& e);
-	void move();
-	friend void calculate_rotation(Entity &e);
-
 };
