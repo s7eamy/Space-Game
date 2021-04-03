@@ -3,16 +3,20 @@
 
 class Rubble : public Entity
 {
-private:
+protected:
 	int mHealth;
 
 public:
 
-	Rubble(int hp = 0) : mHealth{ hp } {}
+	Rubble(int hp = 0) : mHealth{ hp }
+	{
+		mCollider.w = RUBBLE_WIDTH;
+		mCollider.h = RUBBLE_HEIGHT;
+	}
 
 	int RUBBLE_VEL = -8;
-	int RUBBLE_HEIGHT;
-	int RUBBLE_WIDTH;
+	int RUBBLE_HEIGHT = 0;
+	int RUBBLE_WIDTH = 0;
 
 	int getHealth() {
 		return mHealth;

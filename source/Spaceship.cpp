@@ -1,10 +1,12 @@
 #include "Spaceship.h"
 #include "global_variables.h"
 
-void Spaceship::setPos(int xpos, int ypos)
+Spaceship::Spaceship()
 {
-	mPosX = xpos - SHIP_WIDTH / 2;
-	mPosY = ypos - SHIP_HEIGHT / 2;
+	mCollider.w = SHIP_WIDTH;
+	mCollider.h = SHIP_HEIGHT;
+	mPosX = SCREEN_WIDTH / 2 - SHIP_WIDTH / 2;
+	mPosY = SCREEN_HEIGHT / 2 - SHIP_HEIGHT / 2;
 }
 
 void Spaceship::move()
@@ -16,12 +18,14 @@ void Spaceship::move()
 	{
 		mPosX -= mVelX;
 	}
+	mCollider.x = mPosX;
 
 	mPosY += mVelY;
 	if ((mPosY < 0) || (mPosY + SHIP_HEIGHT > SCREEN_HEIGHT))
 	{
 		mPosY -= mVelY;
 	}
+	mCollider.y = mPosY;
 }
 
 void calculate_rotation(Spaceship& e)

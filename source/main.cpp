@@ -14,6 +14,7 @@
 
 bool Init();
 bool LoadMedia();
+bool CheckCollision(SDL_Rect a, SDL_Rect b);
 
 int main(int argc, char* args[])
 {
@@ -27,7 +28,6 @@ int main(int argc, char* args[])
 		std::cout << "Failed to load media!" << std::endl;
 		return 1;
 	}
-	gSpaceShip.setPos(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	bool gameOver = 0;
 	int frame = 0;
 	SDL_Event ev;
@@ -77,6 +77,10 @@ int main(int argc, char* args[])
 		for (int i = 0; i < 3; i++)
 		{
 			gSpaceRubble[i].render(gRubbleTexture[i]);
+			if (CheckCollision(gSpaceRubble[i].mCollider, gSpaceShip.mCollider))
+			{
+				std::cout << "A collision has occured!\n";
+			}
 		}
 		if (frame / 3 >= 3)
 		{
@@ -86,6 +90,41 @@ int main(int argc, char* args[])
 		SDL_RenderPresent(gRenderer);
 	}
 	return 0;
+}
+
+bool CheckCollision(SDL_Rect a, SDL_Rect b)
+{
+	int leftA, leftB;
+	int rightA, rightB;
+	int topA, topB;
+	int bottomA, bottomB;
+
+	// calculate rect a
+	leftA = a.x;
+	rightA = a.x + a.w;
+	topA = a.y;
+	bottomA = a.y + a.h;
+
+	// calculate rect b
+	leftB = b.x;
+	rightB = b.x + b.w;
+	topB = b.y;
+	bottomB = b.y + b.h;
+
+	// check collision
+	// |-----topA-----|
+	// |              |
+	// |              |
+	// |-----topB-----|
+	// |              |
+	// |----bottomA---|
+	// |              |
+	// |----bottomB---|
+	if (bottomA <= topB) return false; 
+	if (topA >= bottomB) return false;
+	if (rightA <= leftB) return false;
+	if (leftA >= rightB) return false;
+	return true;
 }
 
 bool Init()
@@ -140,41 +179,42 @@ bool LoadMedia()
 		std::cout << "Failed to load background.png\n";
 		return false;
 	}
+	// hardcoded values in .setSize() are dimensions of the .png pictures
 	std::string file = "rubble1.png";
 	if (!gRubbleTexture[0].loadFromFile(file) || !gRubbleTexture[4].loadFromFile(file) || !gRubbleTexture[8].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble1.png\n";
 		return false;
 	}
-	gSpaceRubble[0].setSize(100, 100);
-	gSpaceRubble[4].setSize(100, 100);
-	gSpaceRubble[8].setSize(100, 100);
+	gSpaceRubble[0].setSize(81, 72);
+	gSpaceRubble[4].setSize(81, 72);
+	gSpaceRubble[8].setSize(81, 72);
 	file = "rubble2.png";
 	if (!gRubbleTexture[1].loadFromFile(file) || !gRubbleTexture[5].loadFromFile(file) || !gRubbleTexture[9].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble2.png\n";
 		return false;
 	}
-	gSpaceRubble[1].setSize(175, 175);
-	gSpaceRubble[5].setSize(175, 175);
-	gSpaceRubble[9].setSize(175, 175);
+	gSpaceRubble[1].setSize(150, 157);
+	gSpaceRubble[5].setSize(150, 157);
+	gSpaceRubble[9].setSize(150, 157);
 	file = "rubble3.png";
 	if (!gRubbleTexture[2].loadFromFile(file) || !gRubbleTexture[6].loadFromFile(file) || !gRubbleTexture[10].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble3.png\n";
 		return false;
 	}
-	gSpaceRubble[2].setSize(250, 250);
-	gSpaceRubble[6].setSize(250, 250);
-	gSpaceRubble[10].setSize(250, 250);
+	gSpaceRubble[2].setSize(240, 224);
+	gSpaceRubble[6].setSize(240, 224);
+	gSpaceRubble[10].setSize(240, 224);
 	file = "rubble4.png";
 	if (!gRubbleTexture[3].loadFromFile(file) || !gRubbleTexture[7].loadFromFile(file) || !gRubbleTexture[11].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble4.png\n";
 		return false;
 	}
-	gSpaceRubble[3].setSize(137, 137);
-	gSpaceRubble[7].setSize(137, 137);
-	gSpaceRubble[11].setSize(137, 137);
+	gSpaceRubble[3].setSize(126, 129);
+	gSpaceRubble[7].setSize(126, 129);
+	gSpaceRubble[11].setSize(126, 129);
 	return true;
 }

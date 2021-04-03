@@ -30,6 +30,9 @@
     <ClInclude Include="include\Spaceship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Entity.cpp">

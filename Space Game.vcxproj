@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Bullet.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\global_variables.h" />
     <ClInclude Include="include\LTexture.h" />
