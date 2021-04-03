@@ -10,7 +10,9 @@ public:
 
 	Rubble(int hp = 0) : mHealth{ hp } {}
 
-	static const int RUBBLE_VEL = -8;
+	int RUBBLE_VEL = -8;
+	int RUBBLE_HEIGHT;
+	int RUBBLE_WIDTH;
 
 	int getHealth() {
 		return mHealth;
@@ -21,7 +23,7 @@ public:
 	}
 
 	void setRandomPos();
-
+	void setSize(const int w, const int h);
 	void move();
 
 };

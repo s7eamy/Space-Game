@@ -3,11 +3,13 @@
 #include <SDL_image.h>
 #include "global_variables.h"
 
-/**
-* 1. Implement space rubble
-* 2. Implement health
-* 3. Implement bullets from spaceship
-* 4. Scrolling background
+/** 
+* TODO:
+* 1. Collision detection
+* 2. Bullets from spaceship
+* 3. Timer/Score tracker
+* 4. Show healthbar of rubble/spaceship
+* 5. Difficulty increases over time
 */
 
 bool Init();
@@ -60,19 +62,20 @@ int main(int argc, char* args[])
 		gSpaceShip.render( gShipTexture, currentClip );
 		frame++;
 		// render rubble
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			if (gSpaceRubble[i].getHealth() <= 0)
 			{
+				std::cout << "Initialized " << i << " rubble!\n";
 				gSpaceRubble[i].setHealth(100); // 100 should be a symbolic constant, change this later
 				gSpaceRubble[i].setRandomPos();
 			}
 			else
 			{
-				// move rubble
+				gSpaceRubble[i].move();
 			}
 		}
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			gSpaceRubble[i].render(gRubbleTexture[i]);
 		}
@@ -144,23 +147,35 @@ bool LoadMedia()
 		std::cout << "Failed to load rubble1.png\n";
 		return false;
 	}
+	gSpaceRubble[0].setSize(100, 100);
+	gSpaceRubble[4].setSize(100, 100);
+	gSpaceRubble[8].setSize(100, 100);
 	file = "rubble2.png";
 	if (!gRubbleTexture[1].loadFromFile(file) || !gRubbleTexture[5].loadFromFile(file) || !gRubbleTexture[9].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble2.png\n";
 		return false;
 	}
+	gSpaceRubble[1].setSize(175, 175);
+	gSpaceRubble[5].setSize(175, 175);
+	gSpaceRubble[9].setSize(175, 175);
 	file = "rubble3.png";
 	if (!gRubbleTexture[2].loadFromFile(file) || !gRubbleTexture[6].loadFromFile(file) || !gRubbleTexture[10].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble3.png\n";
 		return false;
 	}
+	gSpaceRubble[2].setSize(250, 250);
+	gSpaceRubble[6].setSize(250, 250);
+	gSpaceRubble[10].setSize(250, 250);
 	file = "rubble4.png";
 	if (!gRubbleTexture[3].loadFromFile(file) || !gRubbleTexture[7].loadFromFile(file) || !gRubbleTexture[11].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble4.png\n";
 		return false;
 	}
+	gSpaceRubble[3].setSize(137, 137);
+	gSpaceRubble[7].setSize(137, 137);
+	gSpaceRubble[11].setSize(137, 137);
 	return true;
 }
