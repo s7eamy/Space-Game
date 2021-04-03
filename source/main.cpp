@@ -62,6 +62,18 @@ int main(int argc, char* args[])
 		// render rubble
 		for (int i = 0; i < 4; i++)
 		{
+			if (gSpaceRubble[i].getHealth() <= 0)
+			{
+				gSpaceRubble[i].setHealth(100); // 100 should be a symbolic constant, change this later
+				gSpaceRubble[i].setRandomPos();
+			}
+			else
+			{
+				// move rubble
+			}
+		}
+		for (int i = 0; i < 4; i++)
+		{
 			gSpaceRubble[i].render(gRubbleTexture[i]);
 		}
 		if (frame / 3 >= 3)
@@ -126,22 +138,26 @@ bool LoadMedia()
 		std::cout << "Failed to load background.png\n";
 		return false;
 	}
-	if (!gRubbleTexture[0].loadFromFile("rubble1.png"))
+	std::string file = "rubble1.png";
+	if (!gRubbleTexture[0].loadFromFile(file) || !gRubbleTexture[4].loadFromFile(file) || !gRubbleTexture[8].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble1.png\n";
 		return false;
 	}
-	if (!gRubbleTexture[1].loadFromFile("rubble2.png"))
+	file = "rubble2.png";
+	if (!gRubbleTexture[1].loadFromFile(file) || !gRubbleTexture[5].loadFromFile(file) || !gRubbleTexture[9].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble2.png\n";
 		return false;
 	}
-	if (!gRubbleTexture[2].loadFromFile("rubble3.png"))
+	file = "rubble3.png";
+	if (!gRubbleTexture[2].loadFromFile(file) || !gRubbleTexture[6].loadFromFile(file) || !gRubbleTexture[10].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble3.png\n";
 		return false;
 	}
-	if (!gRubbleTexture[3].loadFromFile("rubble4.png"))
+	file = "rubble4.png";
+	if (!gRubbleTexture[3].loadFromFile(file) || !gRubbleTexture[7].loadFromFile(file) || !gRubbleTexture[11].loadFromFile(file))
 	{
 		std::cout << "Failed to load rubble4.png\n";
 		return false;
