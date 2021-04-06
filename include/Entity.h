@@ -21,4 +21,7 @@ protected:
 public:
 	SDL_Rect mCollider;
 	void render( LTexture& text, SDL_Rect* clip = nullptr);
+	double getRotation() { return rotation; }
+	int getPosX() { return mPosX; }
+	int getPosY() { return mPosY; }
 };

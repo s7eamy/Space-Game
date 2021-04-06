@@ -1,5 +1,6 @@
 #include "Spaceship.h"
 #include "global_variables.h"
+#define PI 3.14
 
 Spaceship::Spaceship()
 {
@@ -34,8 +35,8 @@ void calculate_rotation(Spaceship& e)
 	SDL_GetMouseState(&x, &y);
 	x -= e.mPosX+e.SHIP_WIDTH/2;
 	y -= e.mPosY+e.SHIP_HEIGHT/2;
-	e.rotation = atan2(y, x);
-	e.rotation = e.rotation * 180 / 3.14;
+	e.rotation = atan2(y, x); // returns radians
+	e.rotation = e.rotation * 180 / PI; // convert to degrees
 	e.rotation += 90;
 }
 
@@ -84,4 +85,3 @@ void Spaceship::handleEvent(SDL_Event& e)
 		}
 	}
 }
-

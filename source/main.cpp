@@ -5,12 +5,14 @@
 
 /** 
 * TODO:
-* 1. Collision detection
-* 2. Bullets from spaceship
-* 3. Timer/Score tracker
-* 4. Show healthbar of rubble/spaceship
-* 5. Difficulty increases over time
+* 1. Bullets from spaceship
+* 2. Timer/Score tracker
+* 3. Show healthbar of rubble/spaceship
+* 4. Difficulty increases over time
 */
+
+int num_of_rubble = 3;
+int num_of_bullets = 0;
 
 bool Init();
 bool LoadMedia();
@@ -40,16 +42,45 @@ int main(int argc, char* args[])
 			{
 				gameOver = 1;
 			}
+			else if (ev.type == SDL_MOUSEBUTTONDOWN)
+			{
+				double rot = gSpaceShip.getRotation();
+				gShipBullets[num_of_bullets].activate(rot);
+				num_of_bullets++;
+			}
 			// handle input events
 			gSpaceShip.handleEvent(ev);
 		}
 		// update spaceship position on screen
 		gSpaceShip.move();
+		// update rubble position on screen
+		for (int i = 0; i < num_of_rubble; i++)
+		{
+			if (gSpaceRubble[i].getHealth() <= 0)
+			{
+				gSpaceRubble[i].setHealth(100); // 100 should be a sym const, change this later
+				gSpaceRubble[i].setRandomPos();
+			}
+			else
+			{
+				gSpaceRubble[i].move();
+			}
+		}
+		// update bullet position on screen
+		for (int i = 0; i < num_of_bullets; i++)
+		{
+			gShipBullets[i].move();
+		}
 		// redraw everything
+		// clear the screen white
 		SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
 		SDL_RenderClear(gRenderer);
 		// for animating the spaceship
 		SDL_Rect* currentClip = &gSpriteClips[frame / 6];
+		if (frame / 3 >= 3)
+		{
+			frame = 0;
+		}
 		// render scrolling background
 		gBackgroundTexture.render(scrollingOffset, 0);
 		gBackgroundTexture.render(scrollingOffset + gBackgroundTexture.getWidth(), 0);
@@ -62,29 +93,18 @@ int main(int argc, char* args[])
 		gSpaceShip.render( gShipTexture, currentClip );
 		frame++;
 		// render rubble
-		for (int i = 0; i < 3; i++)
-		{
-			if (gSpaceRubble[i].getHealth() <= 0)
-			{
-				gSpaceRubble[i].setHealth(100); // 100 should be a sym const, change this later
-				gSpaceRubble[i].setRandomPos();
-			}
-			else
-			{
-				gSpaceRubble[i].move();
-			}
-		}
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < num_of_rubble; i++)
 		{
 			gSpaceRubble[i].render(gRubbleTexture[i]);
 			if (CheckCollision(gSpaceRubble[i].mCollider, gSpaceShip.mCollider))
 			{
-				std::cout << "A collision has occured!\n";
+				// do collision stuff (-health for rubble & ship)
 			}
 		}
-		if (frame / 3 >= 3)
+		// render bullets
+		for (int i = 0; i < num_of_bullets; i++)
 		{
-			frame = 0;
+			gShipBullets[i].render(gBulletTexture);
 		}
 		// show changes
 		SDL_RenderPresent(gRenderer);
@@ -216,5 +236,10 @@ bool LoadMedia()
 	gSpaceRubble[3].setSize(126, 129);
 	gSpaceRubble[7].setSize(126, 129);
 	gSpaceRubble[11].setSize(126, 129);
+	if (!gBulletTexture.loadFromFile("bullet.png"))
+	{
+		std::cout << "Failed to load bullet.png\n";
+		return false;
+	}
 	return true;
 }

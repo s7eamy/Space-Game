@@ -27,6 +27,7 @@
     <ClInclude Include="include\Spaceship.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Bullet.cpp" />
     <ClCompile Include="source\Entity.cpp" />
     <ClCompile Include="source\global_variables.cpp" />
     <ClCompile Include="source\LTexture.cpp" />

@@ -1,2 +1,4 @@
-﻿  main.cpp
+﻿  Bullet.cpp
+C:\Users\Aurimas\Documents\Programavimas\SDL projects\Space Game\source\Bullet.cpp(15,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Aurimas\Documents\Programavimas\SDL projects\Space Game\source\Bullet.cpp(16,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Space Game.vcxproj -> C:\Users\Aurimas\Documents\Programavimas\SDL projects\Space Game\Debug\Space Game.exe
