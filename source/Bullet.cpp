@@ -17,6 +17,10 @@ void Bullet::activate(double rot)
 	*/
 	mPosX = gSpaceShip.getPosX() + gSpaceShip.SHIP_WIDTH/2;
 	mPosY = gSpaceShip.getPosY() + gSpaceShip.SHIP_HEIGHT/2;
+	mCollider.x = mPosX;
+	mCollider.y = mPosY;
+	mCollider.h = BULLET_HEIGHT;
+	mCollider.w = BULLET_WIDTH;
 }
 
 void Bullet::move()
@@ -26,9 +30,11 @@ void Bullet::move()
 	{
 		expire();
 	}
+	mCollider.x = mPosX;
 	mPosY -= mVelY;
 	if (mPosY < 0 || mPosY > SCREEN_HEIGHT)
 	{
 		expire();
 	}
+	mCollider.y = mPosY;
 }

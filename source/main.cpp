@@ -100,6 +100,13 @@ int main(int argc, char* args[])
 			{
 				// do collision stuff (-health for rubble & ship)
 			}
+			for (int j = 0; j < num_of_bullets; j++)
+			{
+				if (CheckCollision(gSpaceRubble[i].mCollider, gShipBullets[j].mCollider))
+				{
+					std::cout << "Collision between rubble and bullet!\n";
+				}
+			}
 		}
 		// render bullets
 		for (int i = 0; i < num_of_bullets; i++)
