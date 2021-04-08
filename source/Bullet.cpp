@@ -3,8 +3,16 @@
 #include "global_variables.h"
 #define PI 3.14
 
+void Bullet::expire()
+{
+	mExpired = 1;
+	BULLET_COUNT--;
+	std::cout << "A bullet expired! " << BULLET_COUNT << " bullets left.\n";
+}
+
 void Bullet::activate(double rot)
 {
+	mExpired = 0;
 	rotation = rot;
 	double radians = (rotation * PI) / 180;
 	mVelX = sin(radians) * BULLET_VEL;
@@ -21,6 +29,7 @@ void Bullet::activate(double rot)
 	mCollider.y = mPosY;
 	mCollider.h = BULLET_HEIGHT;
 	mCollider.w = BULLET_WIDTH;
+	BULLET_COUNT++;
 }
 
 void Bullet::move()

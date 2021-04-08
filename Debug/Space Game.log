@@ -1,10 +1,1 @@
-﻿  Bullet.cpp
-C:\Users\Aurimas\Documents\Programavimas\SDL projects\Space Game\source\Bullet.cpp(10,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Aurimas\Documents\Programavimas\SDL projects\Space Game\source\Bullet.cpp(11,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  LTexture.cpp
-  Rubble.cpp
-  Spaceship.cpp
-  global_variables.cpp
-  main.cpp
-  Generating Code...
-  Space Game.vcxproj -> C:\Users\Aurimas\Documents\Programavimas\SDL projects\Space Game\Debug\Space Game.exe
+﻿

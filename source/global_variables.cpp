@@ -2,6 +2,8 @@
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
+int BULLET_COUNT = 0;
+const int MAX_BULLETS = 50;
 
 SDL_Window* gWindow = nullptr;
 SDL_Renderer* gRenderer = nullptr;

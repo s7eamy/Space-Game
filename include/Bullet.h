@@ -14,7 +14,8 @@ public:
 	static const int BULLET_WIDTH = 20;
 	static const int BULLET_HEIGHT = 21;
 
+	bool isActive() { return !mExpired; }
 	void activate(double rot);
-	void expire() { mExpired = 1; }
+	void expire();
 	void move();
 };

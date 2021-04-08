@@ -9,6 +9,8 @@
 
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
+extern int BULLET_COUNT;
+extern const int MAX_BULLETS;
 
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;

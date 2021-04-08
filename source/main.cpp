@@ -12,7 +12,6 @@
 */
 
 int num_of_rubble = 3;
-int num_of_bullets = 0;
 
 bool Init();
 bool LoadMedia();
@@ -45,8 +44,10 @@ int main(int argc, char* args[])
 			else if (ev.type == SDL_MOUSEBUTTONDOWN)
 			{
 				double rot = gSpaceShip.getRotation();
-				gShipBullets[num_of_bullets].activate(rot);
-				num_of_bullets++;
+				if (BULLET_COUNT < 50)
+					gShipBullets[BULLET_COUNT].activate(rot);
+				else
+					std::cout << "No ammo left! Wait a bit.\n";
 			}
 			// handle input events
 			gSpaceShip.handleEvent(ev);
@@ -67,9 +68,10 @@ int main(int argc, char* args[])
 			}
 		}
 		// update bullet position on screen
-		for (int i = 0; i < num_of_bullets; i++)
+		for (int i = 0; i < MAX_BULLETS; i++)
 		{
-			gShipBullets[i].move();
+			if( gShipBullets[i].isActive() )
+				gShipBullets[i].move();
 		}
 		// redraw everything
 		// clear the screen white
@@ -100,18 +102,20 @@ int main(int argc, char* args[])
 			{
 				// do collision stuff (-health for rubble & ship)
 			}
-			for (int j = 0; j < num_of_bullets; j++)
+			for (int j = 0; j < MAX_BULLETS; j++)
 			{
-				if (CheckCollision(gSpaceRubble[i].mCollider, gShipBullets[j].mCollider))
-				{
-					std::cout << "Collision between rubble and bullet!\n";
-				}
+				if(gShipBullets[j].isActive())
+					if (CheckCollision(gSpaceRubble[i].mCollider, gShipBullets[j].mCollider))
+					{
+						std::cout << "Collision between rubble and bullet!\n";
+					}
 			}
 		}
 		// render bullets
-		for (int i = 0; i < num_of_bullets; i++)
+		for (int i = 0; i < MAX_BULLETS; i++)
 		{
-			gShipBullets[i].render(gBulletTexture);
+			if( gShipBullets[i].isActive() )
+				gShipBullets[i].render(gBulletTexture);
 		}
 		// show changes
 		SDL_RenderPresent(gRenderer);
